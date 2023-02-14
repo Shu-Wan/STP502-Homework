@@ -1,0 +1,238 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article} % paper and 12pt font size
+
+
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+\newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+\newcommand{\solution}[1]{\section*{Solution #1}}
+\title{	
+\normalfont \normalsize 
+\textsc{ASU, STP 502 Theory of Statistics II: Inference} % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Homework 1 \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+\author{Shu Wan, ASU ID: 1226038322} % Your name
+\date{\today} % Today's date or a custom date
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+\section*{Problem 6.1}
+Let $X$ be one observation from a $N(0, \sigma^2 )$ population. Is $|X|$ a sufficient statistic? \\
+
+\solution{}
+
+The pdf of $N(0, \sigma^2 )$ is $$f(x|\sigma) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{x^2}{2\sigma^2}} = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{|x|^2}{2\sigma^2}} = g(T(x) = |x| | \sigma) \cdot 1.$$
+
+By the Factorization Theorem (Theorem 6.2.6), $|X|$ is a sufficient statistic for $X$.
+
+\section*{Problem 6.2}
+Let $\sample{X}$ be independent random variables with densities \\
+\begin{equation*}
+  f_{X_i}(x|\theta) = \begin{cases}
+  e^{i\theta - x}  & x  \ge i\theta \\
+  0 & x  < i\theta
+\end{cases}
+\end{equation*}
+
+Prove that $T = \min_i (X_i/i)$ is a sufficient statistic for $\theta$. \\
+
+\solution{}
+
+The joint pdf of $X$ is 
+\begin{align*}
+    f(\mathbf{x}|\theta) &= \Pi _i^n e^{i\theta - x_i}I_{x \le i\theta}(x_i) \\
+    &= e^{(\theta\sum i - \sum x_i}I_{\min(x/i \le \theta))}(\mathbf{x}) \\
+    &= e^{(\theta\sum i}I_{\min(x/i \le \theta))}(\mathbf{x}) \cdot  e^{(- \sum x_i)} \\
+    &= g(T(\mathbf{x})|\theta) \cdot h(\mathbf{x})
+\end{align*}
+The product of indication function requires all $x_i > 0$. Since $i > 0$, we have $\min x_i/i > \theta$.
+
+By the Factorization Theorem, $T = \min_i (X_i/i)$ is a sufficient statistic.
+
+\section*{Problem 6.3}
+Let $\sample{X}$ be a random sample from the pdf
+\begin{equation*}
+f(x| \mu, \sigma) =  \frac1\sigma e^{-(x- \mu)/\sigma}, \mu < x < \inf, 0 < \sigma < \inf.   
+\end{equation*}
+
+Find a two-dimensional sufficient statistic for $(\mu, \sigma)$.
+
+\solution{}
+The joint pdf is
+\begin{align*}
+    f(\mathbf{x}|\mu, \sigma) &= \Pi \frac1\sigma e^{-(x_i- \mu)/\sigma} \cdot I_{\mu, \inf} (x_i) \\
+    &=\frac{1}{\sigma^n} \cdot exp((-\sum(x_i) + n\mu)/ \sigma) \cdot I_{\min(x_i) > \mu} (\mathbf{x}) \cdot 1 \\
+    &= g(x_{(1)}, \sum x_i | \mu, \sigma) \cdot h(\mathbf{x}).
+\end{align*}
+
+By the Factorization Theorem, $T(X) = (X_{(1)}, \sum X_i)$ is a sufficient statistic.
+
+
+\section*{Problem 6.4}
+\textbf{Theorem 6.2.10} \textit{Let $\sample{X}$ be iid observations from a pdf or pmf $f(x|\theta)$ that belongs to an exponential family given by
+$$f(x|\boldsymbol\theta) = h(x)c(\boldsymbol\theta)\exp(\sum \limits_{i=1}^k w_i(\boldsymbol\theta)t_i(x)),$$
+where $\boldsymbol\theta = (\theta_1, \dots, \theta_d), d < k$. Then
+$$T(\boldsymbol X) = (\sum \limits_{j=1}^N t_1(X_j)), \dots, \sum \limits_{j=1}^N t_k(X_j))$$
+is a sufficient statistic for $\boldsymbol\theta$.} \\
+
+\section*{Proof}
+The joint pdf is 
+\begin{align*}
+    f(\mathbf{x}|\boldsymbol{\theta}) &= \prod \limits_j^n {h(x_j)c(\boldsymbol\theta)\exp(\sum \limits_{i=1}^k w_i(\boldsymbol\theta)t_i(x))} \\
+    &= c(\boldsymbol\theta^n \exp(\sum \limits_{i=1}^k w_i \sum \limits_j^n(\boldsymbol\theta)t_i(x_j))) \cdot \prod \limits_j^n h(x_j) \\
+    &= g(T(\boldsymbol x)|\boldsymbol \theta) \cdot h(\boldsymbol x)
+\end{align*}
+
+By the Factorization Theorem, $T(X) = (\sum \limits_j^n t_1(Xj), \dots, \sum \limits_j^n t_k(X_j))$ is a sufficient statistic for $\boldsymbol \theta$.
+
+
+\section*{Problem 6.5}
+Let $\sample{X}$ be independent random variables with pdfs
+\begin{equation*}
+  f_{X_i}(x|\theta) = \begin{cases}
+  \frac{1}{2i\theta}  & -i(\theta - 1) < x  < i(\theta + 1) \\
+  0 & \text{otherwise},
+  \end{cases}
+\end{equation*}
+
+\solution{}
+The joint pdf is
+\begin{align*}
+    f(\boldsymbol x | \theta) &= \prod \limits_{i=1}^n \frac{1}{2i\theta} I_{-i(\theta - 1) < x  < i(\theta + 1)}(x_i) \\
+    &= (\frac{1}{2\theta})^n (\prod \limits_{i=1}^n \frac{1}{i}) I_{\min x_i/i \ge -(\theta - 1)}(\boldsymbol x)I_{\max x_i/i \le \theta + 1}(\boldsymbol x)
+\end{align*}
+
+By the Factorization Theorem, $T(X) = (\min x_i/i, \max x_i/i)$ is a sufficient statistic for $\boldsymbol \theta$.
+
+\section*{Problem 6.7}
+Let $f(x, y| \theta_1, \theta_2, \theta_3, \theta_4)$ be the bivariate pdf for the uniform distribution on the rectangle with lower left corner $(\theta_1, \theta_2)$ and upper right corner $(\theta_3, \theta_4)$ in $\Re^2$. The parameters satisfy $\theta_1 < \theta_3$ and $\theta_2 < \theta_4$. Let $(X_1 , Y_1 ), \dots ,(X_n , Y_n )$ be a random sample from this pdf. Find a four-dimensional sufficient statistic for $(\theta_1, \theta_2, \theta_3, \theta_4)$. \\
+
+\solution{}
+The join pdf is given by
+\begin{align*}
+    f(\boldsymbol x, \boldsymbol y | \boldsymbol \theta) &= \prod \limits_{i=1}^n \frac{1}{(\theta_3 - \theta_1)(\theta_4 - \theta_2)}I_{(\theta_1, \theta_3)}(x_i)I_{(\theta_2, \theta_4)}(y_i) \\
+    &= (\frac{1}{(\theta_3 - \theta_1)(\theta_4 - \theta_2)})^n I_{\min x_i > \theta_1}(\boldsymbol x) I_{\max x_i < \theta_3}(\boldsymbol x)I_{\min y_i > \theta_2}(\boldsymbol y) I_{\max y_i < \theta_4}(\boldsymbol y)
+\end{align*}
+
+By the Factorization Theorem, $T(X) = (\min x_i, \max x_i, \min y_i, \max y_i)$ is a sufficient statistic for $\boldsymbol \theta$.
+
+\section*{Problem 6.9}
+For each of the following distributions let $\sample{X}$ be a random samlple. Find a minimal sufficient statistic for $\theta$.
+\begin{align*}
+        &(b) f(x|\theta) = e^{-(x - \theta)}, \theta < x < \infty, -\infty < \theta < \infty && \text{(location exponential)} \\
+        &(c) f(x|\theta) = \frac{e^{-(x - \theta)}}{(1 + e^{-x-\theta})^2}, -\infty < x < \infty, -\infty < \theta < \infty && \text{(logistic)}
+\end{align*} 
+
+
+\solution{(b)}
+By Theorem 6.2.13, we first calculate $\frac{f(\boldsymbol x| \theta)}{f(\boldsymbol y| \theta)}$
+\begin{align*}
+    \frac{f(\boldsymbol x| \theta)}{f(\boldsymbol y| \theta)} &= \frac{\prod (\exp(-(x_i-\theta))I_{(\theta, \infty)}(x_i))}{\prod (\exp(-(y_i-\theta))I_{(\theta, \infty)}(y_i))} \\
+    &= \frac{e^{-\sum x_i I_{\min x_i}(\boldsymbol x)}}{e^{-\sum y_i I_{\min y_i}(\boldsymbol y)}}.
+\end{align*}
+To make the ratio a constant function of $\theta$, the indicator function must be canceled out. This is achieved when $T(\boldsymbol X) = \min \boldsymbol X$.
+
+\solution{(c)}
+
+\begin{align*}
+    \frac{f(\boldsymbol x| \theta)}{f(\boldsymbol y| \theta)} &= \frac{\exp(-\sum(x_i-\theta)}{\prod (1 + e^{-x-\theta})^2)} \frac{\prod (1 + e^{-x-\theta})^2)}{\exp(-\sum(x_i-\theta)} \\
+    &= \exp (- \sum (y_i - x_i)) (\frac{\prod (1 + e^{-x-\theta})^2)}{\prod (1 + e^{-x-\theta})^2)}).
+\end{align*}
+From Example 6.2.5, we know that order statistic is a sufficient statistic for logistic distribution. Here, if we set order statistic as the sufficient statistic, the ratio is a constant wrt $\theta$.
+
+\section*{Problem 6.12}
+A natural ancillary statistic in most problems is the \textit{sample size}. For example, let $N$ be a randorn variable taking values $1,2, \dots$ with known probabilities $p_1, p_2, \dots,$, where $\sum p_i = 1$. Having observed $N = n$, perform $n$ Bernoulli trials with success probability $\theta$, getting $X$ successes. \\
+\begin{itemize}
+    \item[(a)] Prove that the pair $(X, N)$ is minimal sufficient and $N$ is ancillary for $\theta$. (Note the similarity to some of the hierarchical models discussed in Section 4.4.)
+    \item[(b)] Prove that the estimator $X/N$ is unbiased for $\theta$ and has variance $\theta(1-\theta)E(1/N)$.
+\end{itemize}
+
+\solution{(a)}
+By Theorem, we first calculate the ratio
+\begin{align*}
+        \frac{f(x, n_1| \theta)}{f(y, n_2| \theta)} &= \frac{{n_1 \choose x} \theta^x (1-\theta)^{n-x}p_{n_1}}{{n_2 \choose y} \theta^y (1-\theta)^{n-y}p_{n_2}} \\
+        &\propto \theta^{x-y}(1-\theta)^{(n_1-n_2)-(x-y)}
+\end{align*}
+
+This is a constant wrt $\theta$ when $x = y$ and $n_1 = n_2$. So $T(X) = (X, N)$ is the minimal sufficient statistic for $\theta$.
+
+For ancillarity, because $P(N=n) = p_n$, which is not related to $\theta$, $N$ is ancillary for $\theta$.
+
+ 
+\solution{(b)}
+
+\begin{align*}
+    E(\frac{X}{N}) &= \sum \limits_n^{\infty} \sum \limits_x^n \frac{x}{n} {n \choose x} \theta^x(1-\theta)^{n-x}p_n \\
+    &= \sum \limits_n^\infty \frac{p_n}{n} \frac{n}{\theta} \\
+    &= \theta \sum \limits_n^\infty p_n = \theta.
+\end{align*}
+Therefore, the $X/N$ is an unbiased estimator.
+
+\begin{align*}
+    E((\frac{X}{N})^2) &= \sum \limits_n^\infty \sum \limits_x^n (\frac{x}{n})^2 {n \choose x} \theta^x(1-\theta)^{n-x}p_n \\
+    &= \sum \limits_n^\infty \frac{p_n}{n^2} (n\theta(1-\theta) + (n\theta)^2 \\
+    &=\theta(1-\theta)\sum \limits_n^\infty \frac{p_n}{n} + \theta^2 \\
+    &= \theta(1-\theta)E(1/N) + \theta^2
+\end{align*}
+
+$$Var(X/N) = E((X/N)^2) - (E(X/N))^2 = \theta(1-\theta)E(1/N) + \theta^2 - \theta^2 = \theta(1-\theta)E(1/N)$$
+
+\section*{Problem 6.13}
+Suppose $X_1$ and $X_2$ are iid observations from the pdf 
+$$f(x|\alpha) = \alpha x^{\alpha-1}e^{-x^\alpha}, x > 0, \alpha > 0.$$
+Show that $(\log X_1 ) / (\log X_2)$ is an ancillary statistic. \\
+
+\solution{}
+Let $Y_1 = \log X_1$ and $Y_2 = \log X_2$. By Theorem 2.1.4, the pdf of $Y$ is
+$$f(y|\alpha) = \alpha \exp (\alpha y - e^{\alpha y}) = \frac{1}{1/\alpha} \exp {\frac{y}{1/\alpha} - e^{\frac{y}{1/\alpha}}}$$.
+We can see that $Y$ is a scale family with scale parameter $1/\alpha$. By Theorem 3.5.6, let $Y = \frac{1}{\alpha}Z$, where $Z \sim f(z|1)$. $Z$ is not related to $\alpha$.
+Then
+$$\frac{\log X_1}{\log X_2} = \frac{Z_1}{Z_2}$$.
+
+Therefore, $\frac{\log X_1}{\log X_2}$ is an ancillary statistic for $\alpha$.
+
+\section*{Problem 6.14}
+Let $\sample{X}$ be a random sample from a location family. Show that $M - \Bar{X}$ is an
+ancillary statistic, where $M$ is the sample median. \\
+
+\solution{}
+By Theorem 3.5.6, we can reparameter $X$ as $X = Z + \mu$, where $\sample{Z}$ is from standard pdf, and $\mu$ is the location parameter. For $X$ and $Z$, we have $M(X) = M(Z) + \mu$ and $\bar X = \bar Z + \mu$. Therefore, we have $M(X) - \bar X = M(Z) - \bar Z$.
+Becase $Z$ does not depend on $\mu$, that $M(X) - \bar X$ does not depend on $\mu$.
+
+Therefore, $M(X) - \bar X$ is an ancillary statistic for $\alpha$.
+
+\section*{Theorem 6.2.13}			
+\textbf{Theorem 6.2.13} \textit{Let $f(x|\theta)$ be the pmf or pdf of a sample $X$. Suppose there exists a function $T(x)$ such that, for every two sample points $x$ and $y$, the ratio $f(x|\theta)/ f(y|\theta)$ is constant as a function of $\theta$ if and only if $T(x) = T(y)$. Then $T(X)$ is a minimal sufficient statistic for $\theta$.} \\
+
+\section*{Proof}
+First, we prove that $T(\boldsymbol X)$ is a sufficient statistic. For each $T(\boldsymbol X) = t$, we can define the corresponding image in $X$ as $A_t:= \{\boldsymbol x: T(\boldsymbol X) = t\}$. For each $A_t$, choose and fix one element $x_t \in A_t$. Similarly, choose $\boldsymbol x \in \mathcal{X}$ such that $T(\boldsymbol x) = t$. Since $\boldsymbol x_t$ and $\boldsymbol x_{T(\boldsymbol x)}$ are in the same set, we have $T(\boldsymbol X_t) = T(\boldsymbol x_{T(\boldsymbol X)})$. Hence, $f(\boldsymbol x|\theta)/f(\boldsymbol x_{T(x)}|\theta)$ is constant w.r.t $\theta$. Thus, we have
+
+$$f(\boldsymbol x|\theta) = f(\boldsymbol x_{T(X)}|\theta) \cdot \frac{f(\boldsymbol x|\theta)}{f(\boldsymbol x_{T(X)}|\theta)}.$$
+
+By the Factorizaion Theorem, $T(\boldsymbol X)$ is a sufficient statistic for $\theta$.
+
+For minimality, let $T'(\boldsymbol X)$ be any other sufficient statistic. By the Factorization Theorem, we can wrtite ratio as
+$$\frac{f(\boldsymbol x| \theta}{f(\boldsymbol y| \theta)} = \frac{g'(T'(\boldsymbol x)| \theta)h'(\boldsymbol x)}{g'(T'(\boldsymbol y)| \theta)h'(\boldsymbol y)} = \frac{h'(\boldsymbol x)}{h'(\boldsymbol y)}$$
+
+The ratio does not depend on $\theta$, and this implies that $T(\boldsymbol x) = T(\boldsymbol y)$. Thus, $T(\boldsymbol x)$ is a function of $T'(\boldsymbol x)$. Then $T(\boldsymbol x)$ is minimal.
+\qed
+
+
+\end{document}

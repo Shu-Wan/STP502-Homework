@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[margin=1in,nohead]{geometry}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{url}
+
+\begin{document}
+
+$$\mathbf{1}_A \colon X \to \{ 0, 1 \}$$
+is defined as 
+\begin{equation*}
+  \mathbf{1}_A(x) :=
+\begin{cases}
+1 ~&\text{ if }~ x \in A~, \\
+0 ~&\text{ if }~ x \notin A~.
+\end{cases}  
+\end{equation*}
+
+
+In our case (6.3), 
+\begin{equation*}
+  I_{\min x_i > \mu} (\boldsymbol x) :=
+\begin{cases}
+1 ~&\text{ if }~ \boldsymbol x \in \{\min \limits_i x_i > \mu\} ~, \\
+0 ~&\text{ if }~ \textrm{otherwise }.
+\end{cases}  
+\end{equation*}
+
+$\Leftrightarrow$
+
+\begin{equation*}
+  I_{(\mu, \infty)} (\min x_i) :=
+\begin{cases}
+1 ~&\text{ if }~ \min x_i > \mu ~, \\
+0 ~&\text{ if }~ \textrm{otherwise }.
+\end{cases}  
+\end{equation*}
+
+\end{document}

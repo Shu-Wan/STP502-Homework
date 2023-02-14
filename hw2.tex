@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[margin=1in,nohead]{geometry}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{url}
+
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mb}{\mathbb}
+\newcommand{\msc}{\mathscr}
+\newcommand{\goesto}{\rightarrow}
+\newcommand{\note}{{\bf Note: }}
+\newcommand{\vspan}{\text{span}}
+
+\newcommand{\R}{\mb{R}}
+\newcommand{\nat}{\mb{N}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\ones}{\mathbf{1}}
+\newcommand{\zero}{\mathbf{0}}
+
+\newcommand{\Eqn}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\bbm}{\begin{bmatrix}}
+\newcommand{\ebm}{\end{bmatrix}}
+\newcommand{\bpm}{\begin{pmatrix}}
+\newcommand{\epm}{\end{pmatrix}}
+
+\newcommand{\Sol}{\par {\bf Solution:}}
+\newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\allowdisplaybreaks[4]
+
+\begin{document}
+
+\begin{center}
+\Large{
+\textbf{STP 502, Spring 2023, Homework 2} \\
+Due: Monday, Feb 06, 2023. \\
+Shu Wan (1226038322)
+}
+\end{center}
+%\bigskip
+
+\subsection*{6.17}
+Let $\sample{X}$ be iid with geometric distribution
+$$P_\theta(X = x) = \theta(1-\theta)^{x-1}, ~ x = 1, 2, \dots, ~ 0 < \theta < 1$$
+
+Show that: $\sum X_i$ is sufficient for $\theta$, and find the family of distributions of $\sum X_i$. Is the family complete?
+
+\Sol
+
+The pmf of geometric distribution can be expressed as
+\[
+f(\x | \theta) = \theta(1-\theta)^{x-1} = \frac{\theta}{1-\theta}e^{\log (1-\theta)x},
+\]
+which is an exponential family distribution with $T(x) = x$ and $w(\theta) = \log (1-\theta)$. By Theorem 6.2.10, $T(\sum X_i)$ is a \emph{sufficient} statistic. The dimension of $w(\theta)$ is equal to the dimension of $T(\X)$. By Theorem 6.2.25, $T(\X)$ is also a \emph{complete} statistic.
+
+$\sum X_i - n \sim NB(n, \theta)$, $\sum X_i$ follows negative binomial distribution.
+
+\subsection*{6.19}
+The random variable $X$ takes the values 0, 1, 2 according to one of the following distributions:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccc}
+                     & $P(X = 0)$          & $P(X = 1)$          & $P(X = 2)$          &                      \\ \cline{2-4}
+Distribution 1       & $p$                   & $3p$               & $1-4p$                & $0 < p < \frac14$                    \\
+Distribution 2       & $p$                    & $p^2$ & $1-p-p^2$                    & $0 < p < \frac12$                  \\
+\multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{l}{}
+\end{tabular}
+\end{table}
+
+In each case determine whether the family of distributions of $X$ is complete.
+
+\Sol
+
+To check whether the family of distributions is complete, we need to verify if $E_p g(X) = 0$ for all $p$, implies that $g(X) = 0 \textrm{ for all } X$
+
+\begin{enumerate}
+    \item Distribution 1
+    \[
+    E_pg(X) = \sum \limits_0^2 g(X)P(X=x) = pg(0) + 3pg(1) + (1-4p)g(2) = (g(0) + 3g(1) - 4g(2))p + g(2).
+    \]
+    In order to achieve $E_p g(X) = 0$ for all $p$, we require $g(2) = 0$ and $g(0) = -3g(1)$. However, it does not lead to $g(X) = 0$ for all $X$. Hence, the family of distribution 1 is \emph{not complete}.
+    
+    \item Distribution 2
+    \begin{align*}
+        E_pg(X) &= \sum \limits_0^2 g(X)P(X=x) \\
+        &= pg(0) + p^2g(1) + (1-p-p^2)g(2) \\
+        &= (g(0) - g(2))p + (g(1) - g(2))p^2 + g(2) = 0
+    \end{align*}
+    To make the above polynomial equation equals to 0, we need $g(2) = 0$, $g(0) = g(2)$, and $g(1) = g(2)$, which is equivalent to $g(X) = 0$ for all $X$. Hence, the family of distribution 2 is \emph{complete}.
+\end{enumerate}
+
+\subsection*{6.21}
+Let $X$ be one observation from the pdf
+$$f(x|\theta) = (\frac{\theta}{2})^{|x|}(1-\theta)^{1 - |x|}, \quad x = -1, 0, 1, \quad 0 \le \theta \le 1.$$
+\begin{enumerate}[label=(\alph*)]
+    \item Is $X$ a complete sufficient statistic?
+    \item Is $|X|$ a complete sufficient statistic?
+    \item Does $f(x|\theta)$ belong to the exponential class?
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    $X$ is a trivial sufficient statistic.
+    \begin{align*}
+       E_\theta g(X) &= \sum g(X)P(X=x) \\ 
+       &= (\frac{\theta}{2}) g(-1) + (1-\theta) g(0) + (\frac{\theta}{2}) g(1) \\
+       &= (1/2 (g(-1) + g(1))- g(0))\theta + g(0)
+    \end{align*}
+    To make the above equation to 0, we need $g(0) =0$ and $g(-1) + g(1) = g(0)$, which implies $g(1) = - g(-1)$. However, this does not lead to $g(X) \equiv 0$. Hence, $X$ is \emph{not complete}.
+    \item 
+    We can re-write the pdf as
+    \begin{align*}
+        f(x|\theta) &= (1-\theta) (\frac{\theta}{2(1-\theta)})^{|x|} \\
+        &= \overbrace{1}^{h(x)} \cdot \underbrace{(1-\theta)}_{c(\theta)} \exp(
+        \log \frac{\theta}{2(1-\theta)}) |x|).
+    \end{align*}
+    $f(x|\theta)$ is an exponential family distribution. $T(X) = |X|$ and the dimension of $\theta$ equals to $T(X)$. Hence, by Theorem 6.2.10 and 6.2.25, $|X|$ is a \emph{complete and sufficient} statistic for $\theta$.
+    \item 
+    Yes, $f(x|\theta)$ belongs to the exponential family.
+\end{enumerate}
+
+
+\subsection*{6.22}
+Let $\sample{X}$ be a random sample from a population with pdf
+$$f(x|\theta) = \theta x^{\theta -1}, ~ 0 < x < 1, ~ \theta > 0.$$
+\begin{enumerate}[label=(\alph*)]
+\item Is $\sum X_i$ sufficient for $\theta$?
+\item Find a complete sufficient statistic for $\theta$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    We can re-write the pdf as
+    $$f(x|\theta) = \overbrace{1}^{h(x)} \cdot \underbrace{\theta}^{c(\theta)} \exp (\underbrace{(\theta - 1)}_{w(\theta)} \overbrace{\log(x)}^{t(x)}).$$
+    $f(x|\theta)$ is an exponential family distribution, with $T(x) = x$, and the dimension of $\theta$ equals to the dimension of $T(X)$. By Theorem 6.2.10, $T(X) = (\sum \log(X_i))$ is a \emph{sufficient} statistic for $\theta$, not $\sum X_i$.
+    \item  
+    By Theorem 6.2.25, $T(X) = (\sum \log(X_i))$ is a \emph{complete sufficient} statistic for $\theta$.
+    
+\end{enumerate}
+
+\subsection*{6.23}
+Let $\sample{X}$ be a random sample from a uniform distribution on the interval $(\theta, 2\theta)$, $\theta > 0$ . Find a minimal sufficient statistic for $\theta$. Is the statistic complete?
+
+\Sol
+
+By Theorem 6.2.13, the ratio
+\[
+\frac{f(\x|\theta)}{f(\y|\theta)} = 
+\frac{\prod \frac{1}{\theta}I_{(\theta, 2\theta)}(x_i)}{\prod \frac{1}{\theta}I_{(\theta, 2\theta)}(y_i)}
+=\frac{\theta^{-n} I_{(1/2 X_{(n)}, X_{(1)})}(\theta)}{\theta^{-n} I_{(1/2 Y_{(n)}, Y_{(1)})}(\theta)}
+\]
+is constant (1) if and only if $X_{(1)} = Y_{(1)}$ and $X_{(n)} = Y_{(n)}$. Hence, $T(\X) = (X_{(1)}, X_{(n)})$ is a minimal sufficient statistic for $\theta$.
+
+$X$ is a scale family, with standard pdf $Z \sim unif(1, 2)$. By Example 6.2.19, $X_{(1)}/X_{(n)}$ is an ancillary statistic that does not depend on $\theta$. Let $V = X_{(1)}/X_{(n)}$ and $g(V) = V - E(V)$. We have $Eg(V) = 0$ for all $\theta$, however $V$ does not always equal to 0. Hence, $T(\X) = (X_{(1)}, X_{(n)})$ is \emph{not complete}.
+
+\subsection*{6.24}
+Consider the following family of distributions:
+$$\mc P = \{\mc P_\lambda(X = x): \mc P_\lambda(X = x) = \lambda^x e^{-\lambda}/x!; x = 0,1,2,\dots;\lambda=0 ~\textrm{or}~ 1\}.$$
+
+This is a Poisson family with $\lambda$ restricted to be 0 or 1. Show that the family $\mathcal{P}$ \emph{is not complete}, demonstrating that completeness can be dependent on the range of the parameter. (See Exercises 6.15 and 6.18.)
+
+\Sol
+
+\begin{align*}
+    E_\lambda g(X) &= \sum _0^\infty g(X) \{\mc P_\lambda(X = x)\} \\
+    &= \sum _0^\infty g(X) \lambda^x e^{-\lambda}/x!
+\end{align*}
+
+If $\lambda = 0$, $E_\lambda g(X) = g(0)$ ($0^0=1$) \\
+If $\lambda = 1$, $E_\lambda g(X) = g(0)e^{-1} + \sum _1^\infty \frac{g(x)e^{-1}}{x!} $. \\
+To achieve completeness, we require $g(0) = 0$ and $\sum _1^\infty \frac{g(x)e^{-1}}{x!} = 0$. However, we can find a sequence $(g(0) = 0, g(1) = 1, g(2) = -2, g(x) = 0, x ~ \textrm{for all }\le 3)$ that $g(X) \not\equiv 0$. Hence, the family is \emph{not complete}.
+
+\subsection*{6.27}
+Let $\sample{X}$ be a random salnple from the \emph{inverse Gaussian distribution} with pdf
+$$f(x|\mu,\lambda) = (\frac{\lambda}{2\pi x^3})^{1/2}e^{\frac{-\lambda(x-\mu)^2}{2\mu^2x}}, ~ 0 <x < \infty.$$
+
+Show that the statistics
+$$\bar X  = \frac{1}{n} \sum \limits_{i=1}^n X_i \quad \textrm{and} \quad T = \frac{n}{\sum _{i=1}^n \frac{1}{X_i} - \frac{1}{\bar X}}$$
+are sufficient and complete.
+
+\Sol
+
+We re-write the pdf as
+\begin{align*}
+    f(x|\mu, \lambda) &= (\frac{\lambda}{2\pi x^3})^{1/2}e^{\frac{-\lambda(x-\mu)^2}{2\mu^2x}} \\
+    & = (\frac{1}{x^3})^{1/2} (\frac{\lambda}{2\pi})^{1/2} \exp{\frac{\lambda}{\mu}} \exp{(-\frac{\lambda}{2\mu^2}x - \frac{\lambda}{2}x^-1)},
+\end{align*}
+where $T(X) = (X, \frac{1}{X})$. By Theorem 6.2.10 and 6.2.25,
+$T(\X) = (\sum X_i, \sum \frac{1}{X_i})$ are complete and sufficient statistics. $\bar X$ and $T$ are one-one map to $T(\X)$. Hence, $\bar X$ and $T$ are complete and sufficient as well.
+
+\subsection*{6.30}
+Let $\sample{X}$ be a random sample from the pdf $f(x|\mu) = e^{-(x-\mu)}$, where $-\infty < \mu < x < \infty$.
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $X_{(1)} = \min_i X_i$ is a complete sufficient statistic.
+    \item Use Basu's Theorem to show that $X_{(1)}$ and $S^2$ are independent.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    \textbf{Sufficiency} \\
+    The joint pdf is given by
+    $$f(\x|\mu) = \prod e^{-(x_i-\mu)}I_{\mu, \infty}(x_i) =  e^{-\sum x_i} \cdot e^{n\mu} I_{(\mu, \infty)}(X_{(1)}).$$
+    By the Factorization Theorem, $X_{(1)}$ is a sufficient statistic.
+    
+    \textbf{Completeness} \\
+    From Theorem 5.4.4, we have
+    $$f_{X_{(1)}}(x) = f_X(x)(1 - F_X(x))^{n-1}n = ne^{-n(x-\mu)}, x > \mu.$$
+    We have $E_\mu g(x) = \int_\mu^\infty g(x) ne^{-n(x-\mu)} dx$. If this equals to 0 for all $\mu$, then $\int_\mu^\infty g(x) e^{-nx} dx \equiv 0$. This is true for
+    \[
+    0 = \frac{d}{d\mu} \int_\mu^\infty g(x) e^{-nx} dx = - g(\mu)e^{-n\mu}.
+    \]
+    This implies $g(x) \equiv 0$. By Theorem 6.2.21, we have the completeness for $X_{(1)}$.
+    \item 
+    \begin{proof}
+    Since we already proved that $X_{(1)}$ is a complete and sufficient statistic for $\mu$ (and minimal by Exercise 6.9(b)), by Basu's Theorem, we only need to prove that $S^2$ is an ancillary statistic.
+
+    $X$ is a location family distribution with the location parameter $\mu$. Define the standard distribution $Z = X - \mu$. We have
+    \[
+    S^2 = \frac{1}{n-1}\sum(X_i - \bar X)^2 =  \frac{1}{n-1}\sum((Z_i + \mu) - (\bar Z + \mu))^2 = \frac{1}{n-1}\sum(Z_i - \bar Z)^2.
+    \]
+    The last term in the above equation does not dependent on $\mu$. Hence, $S^2$ is an ancillary statistic for $\mu$.
+
+    Therefore, by Basu's Theorem, $S^2$ is independent of $X_{(1)}$
+    \end{proof}
+\end{enumerate}
+
+\end{document}

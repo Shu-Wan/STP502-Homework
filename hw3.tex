@@ -1,0 +1,400 @@
+
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[margin=1in,nohead]{geometry}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{listings}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mb}{\mathbb}
+\newcommand{\msc}{\mathscr}
+\newcommand{\goesto}{\rightarrow}
+\newcommand{\note}{{\bf Note: }}
+\newcommand{\vspan}{\text{span}}
+
+\newcommand{\R}{\mb{R}}
+\newcommand{\nat}{\mb{N}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\ones}{\mathbf{1}}
+\newcommand{\zero}{\mathbf{0}}
+
+\newcommand{\Eqn}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\bbm}{\begin{bmatrix}}
+\newcommand{\ebm}{\end{bmatrix}}
+\newcommand{\bpm}{\begin{pmatrix}}
+\newcommand{\epm}{\end{pmatrix}}
+
+\newcommand{\Sol}{\par {\bf Solution:}}
+\newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+\newcommand{\order}[1]{X_{(#1)}}
+\DeclareMathOperator*{\argmin}{\arg\min}
+\DeclareMathOperator*{\argmax}{\arg\max}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\allowdisplaybreaks[4]
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\begin{center}
+\Large{
+\textbf{STP 502, Spring 2023, Homework 3} \\
+Due: Monday, Feb 13, 2023. \\
+Shu Wan (1226038322)
+}
+\end{center}
+
+
+
+\subsection*{7.1} 
+One observation is taken on a discrete random variable $X$ with pmf $f(x|\theta)$ ,where $\theta \in \{1,2,3\}$ Find the MLE of $\theta$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\hline
+x & $f(x|1)$  & $f(x|2)$   & $f(x|3)$ \\ \hline
+0 & $\frac{1}{3}$ & $\frac{1}{4}$ & 0 \\
+1 & $\frac{1}{3}$  & $\frac{1}{4}$    & 0 \\
+2 & 0  & $\frac{1}{4}$   & $\frac{1}{4}$ \\
+3 & $\frac{1}{6}$  & $\frac{1}{4}$    & $\frac{1}{2}$ \\
+4 & $\frac{1}{6}$  & 0    & $\frac{1}{4}$ \\ \hline
+\end{tabular}
+\end{table}
+
+\Sol
+
+For each observation $x$, the MLE of $\theta$ is the one with largest likelihood $L(\theta | x) = \argmax \limits_\theta f(x|\theta)$ given the observation.
+The likelihoods are in the following table.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\hline
+x & $\hat \theta$  \\ \hline
+0 & 1  \\
+1 & 1   \\
+2 & 2 \& 3  \\
+3 & 3  \\
+4 & 3 \\ \hline
+\end{tabular}
+\end{table}
+
+For $x=2$, both $\theta = 2$ and 3 attain the maximum, hence both are MLEs.
+
+
+\subsection*{7.2} 
+Let $\sample{X}$ be a random sample from a gamma($\alpha$, $\beta$) population.
+\begin{enumerate}[label=(\alph*)]
+\item Find the MLE of $\beta$, assuming $\alpha$ is known.
+\item If $\alpha$ and $\beta$ are both unknown, there is no explicit formula for the MLE of $\alpha$ and $\beta$,
+but the maximum can be found numerically. The result in part (a) can be used to reduce the problem to the maximization of a univariate function. Find the MLEs for $\alpha$ and $\beta$ for the data in Exercise 7.10(c).
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item 
+    The Likelihood function of sample $\X$ is
+    \[
+    L(\beta|\x) = \prod \limits_1^n \frac{1}{\Gamma(\alpha)\beta^\alpha}x_i^{\alpha -1}e^{-x_i/\beta} = 
+    \frac{1}{\Gamma(\alpha)^n\beta^{n\alpha}} \prod x_i^{\alpha - 1} \exp(-\sum x_i / \beta),
+    \]
+    and the corresponding log liklihood function is
+    \[
+    \log L(\beta|\x) = -n \log \Gamma(\alpha) - n\alpha \log \beta + (\alpha -1) \sum \log x_i - \frac{\sum x_i}{\beta}.
+    \]
+    The maximum can be achieved by solving 
+    \[
+    \frac{\partial\log L(\beta|\x)}{\partial \beta} = -\frac{n\alpha}{\beta} + \frac{\sum x_i}{\beta^2}
+    \]
+    Solving this equation gives us
+    $\hat \beta = \frac{\sum x_i}{n\alpha}.$
+    It can also be proved that the second derivative at $\hat \beta$ is negative. Hence $\hat \beta$ is the MLE.
+    \item
+    When both $\alpha$ and $\beta$ are unknow, the log likelihood is 
+    \[
+        \log L(\alpha, \beta|\x) = -n \log \Gamma(\alpha) - n\alpha \log \beta + (\alpha -1) \sum \log x_i - \frac{\sum x_i}{\beta},
+    \]
+    is the same as in part(a), except that both $\alpha$ and $\beta$ are variables.
+    From (a), we know that when $\alpha$ is fixed, the $\beta$ that maximize $L$ is $\frac{\sum x_i}{n \alpha}$. Plug this expression into the above likelihood function,
+    \[
+    -n \log \Gamma(\alpha) - n\alpha \log (\sum x_i/n\alpha) + (\alpha -1) \sum \log x_i - n\alpha,
+    \]
+    Then it becomes a univariate function of $\alpha$.
+    There's no analytical solution for this function, but numeric solution can be computed by programming.
+    Using \lstinline{optimize} from \lstinline{R} (see code below), we have $\hat\alpha = 514.3354$, plug $\hat \alpha$ into MLE of $\beta$, then we have$\hat \beta = 0.0449401$.
+
+    \lstinputlisting[language=R]{hw2.R}
+    
+\end{enumerate}
+
+\subsection*{7.5}
+Consider estimating the binomial parameter $k$ as in Example 7.2.9.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Prove the assertion that the integer $\hat k$ that satisfies the inequalities and is the MLE is the largest integer less than or equal to $1/\hat z$.
+    \item Let $p = \frac{1}{2}$, $n = 4$, and  $X_1 = 0$, $X_2 = 20$, $X_3 = 1$, and $X_4 = 19$. What is $\hat k$?
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \begin{proof}
+        Let the integer $\hat k$ be the largest integer less than or equal to $1/{\hat z}$, where $\hat z$ is the solution to 
+        \[
+        (1-p)^n = \prod \limits_i (1-x_iz).
+        \]
+        Because $\hat k \le 1/{\hat z}$, then we have $\hat z \le 1/{\hat k}$ and because the right-hand side of above equation is strictly decreasing, we have \[
+        [k(1-p)]^n  \le \prod (k-x_i)
+        \]
+        Similarly, $\hat k$ also satisfy \[
+        [(k+1)(1-p)]^n < \prod (k+1 - x_i).
+        \]
+        Hence, $\hat k$ is the MLE.
+    \end{proof}
+    
+    \item
+    For $p = \frac{1}{2}$, $n = 4$, and  $X_1 = 0$, $X_2 = 20$, $X_3 = 1$, and $X_4 = 19$, plug these value into two the $z$ function. We have 
+    \[
+    (1/2)^4 = (1-20z)(1-z)(1-19z) \to 380z^3 - 419z^2 + 40z - 15/16 = 0.
+    \]
+    This cubic equation have 3 roots: $0.9998, 0.0646, 0.038173$. We also requires $z \le 1/(\max x_i) = 0.05$. Hence, $\hat k = 1/ 0.038173 \approx 26$.
+    
+\end{enumerate}
+
+\subsection*{7.6}
+Let $\sample{X}$ be a random sample from the pdf
+\[
+f(x|\theta) = \theta x^{-2}, \quad 0 \le \theta < x < \infty.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item What is a sufficient statistic for $\theta$?
+    \item Find the MLE of $\theta$.
+    \item Find the method of moments estimator of $\theta$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    The joint pdf of $\X$ is
+    \[
+    f(\x|\theta) = \theta^n \prod x_i^{-2} I_{[\theta, \infty)]}(x_i) = \theta^n I_{[\theta, \infty)]}(x_{(1)}) \cdot \prod x_i^{-2},
+    \]
+    thus by the Factorization Theorem, the minimum of $\X$, $x_{(1)}$, is the sufficient statistic for $\theta$.
+    \item
+    The likihood function is
+    $L(\theta|\x) = \theta^n I_{[\theta, \infty)]}(x_{(1)}) \cdot \prod x_i^{-2}$.
+    The last term is not related to $\theta$, and the first term is monotone increasing with $theta$. However, $\theta$ is resctricted by the indicator function, which is 0 when $\theta > X_{(1)}$. Hence, the maximum is acheieved when $\hat \theta = X_{(1)}$.
+    
+    \item
+    The first moment of $X$ is
+    \[
+    E X = \int_\theta^\infty \theta x^-1 dx = \theta \log x |_\theta^\infty = \infty.
+    \]
+    Therefore, the method of moment estimator does not exist.
+\end{enumerate}
+
+\subsection*{7.7}
+Let $\sample{X}$ be iid with one of two pdfs. If $\theta = 0$, then 
+
+\begin{equation*}
+    f(x|\theta) = \begin{cases}
+        1 & \textrm{if } 0 < x < 1 \\
+        0 & \textrm{otherwise,}
+    \end{cases}
+\end{equation*}
+while if $\theta = 1$, then
+\begin{equation*}
+    f(x|\theta) = \begin{cases}
+        1/(2\sqrt{x}) & \textrm{if } 0 < x < 1 \\
+        0 & \textrm{otherwise.}
+    \end{cases}
+\end{equation*}
+Find the MLE of $\theta$.
+
+\Sol
+If $\theta = 0$,
+\[
+L(0|\x) = 1, ~0 < x_i < 1 ~\forall i,
+\]
+if $\theta = 1$
+\[
+L(1|\x) = \prod 1/(2\sqrt{x_i}), ~0 < x_i < 1 ~\forall i.
+\]
+
+When $L(0|\x) > L(1|\x) \longleftrightarrow 1 > \prod 1/(2\sqrt{x_i})$, MLE = 0, and 1 other wise.
+
+
+\subsection*{7.8}
+One observation, $X$, is taken from a n(0, $\sigma$) population.
+\begin{enumerate}[label=(\alph*)]
+    \item Find an unbiased estirnator of $\sigma^2$.
+    \item Find the MLE of $\sigma$.
+    \item Discuss how the method of moments estimator of $\sigma$ might be found.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \[
+    \sigma = Var(x) = E(X^2) - (EX)^2 = E(X^2)
+    \]
+    Hence, $X^2$ is an unbiased estimator of $\sigma^2$.
+    \item
+    \[
+    L(\sigma |x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-x^2/2\sigma^2};\quad
+    \log L(\sigma |x) = 1/2\log(2\pi) - \log\sigma - x^2/2\sigma^2.
+    \]
+    \[
+    \frac{\partial \log L(\sigma |x)}{\partial \sigma} = -\frac{1}{\sigma} + \frac{x^2}{2\sigma^3} = 0 \to \hat \sigma = |x|.
+    \]
+    \[
+    \frac{\partial^2 \log L(\sigma |x)}{\partial \sigma^2}|_{\sigma = |x|} = \frac{-3x^2}{\sigma^3} + \frac{1}{\sigma^2} < 0.
+    \]
+    Thus, $\hat \sigma = |x|$ is MLE of $\sigma$.
+    
+    \item
+    The first moment is 0, a trivial value. Then we take the second moment: $E X^2 = VarX + (EX)^2 = \sigma = X^2 \to \hat \sigma = |X|.$ 
+\end{enumerate}
+
+\subsection*{7.9}
+Let $\sample{X}$ be iid with pdf
+\[
+f(x|\theta) = \frac{1}{\theta}, \quad 0 \le x \le \theta, \quad \theta > 0.
+\]
+Estimate $\theta$ using both the method of moments and maximum likelihood . Calculate the means and variances of the two estimators. Which one should be preferred and why?
+
+\Sol
+\begin{itemize}
+    \item \textbf{Method of moments}
+    
+    Because $X \sim \text{Uniform}(\theta)$, then
+    \[
+    E(X) = \theta / 2 = \bar X.
+    \]
+    Thus the method of moments estimator is $\hat \theta = 2 \bar X$.
+    $E\hat\theta = 2E\bar X = \theta \text{ and } Var \hat{\theta} = 4 = Var\bar X = 4 \frac{\theta^2/12}{n} = \frac{\theta^2}{3n}.$
+    \item \textbf{MLE}
+    \[
+    L(\theta | \x) = \frac{1}{\theta^n} \prod I_{[0, \theta]}(x_i),
+    \]
+    the likelihood equals to $\frac{1}{\theta^n}$ if $X_{(n)} \le \theta$ and 0 otherwise. In other words, the maximum of $L$ is achieived for $\theta \ge X_{(1)}$. Since $\frac{1}{\theta^n}$ is a decreasing function of $\theta$, the MLE $\hat \theta = X_{(n)}$. The pdf of $X_{(n)}$ is 
+    \[
+    f(X_{(n)}) = nx^{n-1}/\theta^n, 0 \le x \le \theta.
+    \]
+    Hence, $E\hat{\theta} = \frac{n}{n+1}\theta, Var(\hat{\theta}) = \frac{n\theta^2}{(n+2)(n+1)^2}.$
+
+    The method of moment estimator $\theta_{MM}$ is unbiased while the MLE estimator $\theta_{MLE}$ is biased, but the bias of $\theta_{MLE}$ goes away when $n \to \infty$. On the other hand, $Var(\theta_{MLE}) < Var(\theta_{MM})$ for all $\theta$. So if $n$ is large, $\theta_{MLE}$ is preferable.
+\end{itemize}
+ 
+\subsection*{7.10}
+The independent randorn variables $\sample{X}$ have the common distribution
+\[
+P(X_i \le x | \alpha, \beta) = \begin{cases}
+    0 & \text{if } x < 0 \\
+    (x/\beta)^\alpha & \text{if } 0 \le x \le \beta \\
+    1 & \text{if } x > \beta,
+\end{cases}
+\]
+where the parameters $\alpha$ and $\beta$ are positive.
+\begin{enumerate}[label=(\alph*)]
+    \item Find a two-dimensional sufficient statistic for $(\alpha, \beta)$.
+    \item Find the MLEs of $\alpha$ and $\beta$.
+    \item The length (in millimeters) of cuckoos' eggs found in hedge sparrow nests can be modeled with this distribution. For the data
+    \[
+    22.0, 23.9, 20.9, 23.8, 25.0, 24.0, 21 .7, 23.8, 22.8, 23. 1 , 23. 1 , 23.5, 23.0, 23.0,
+    \]
+    find the MLEs of $\alpha$ and $\beta$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    The joint pdf of $\X$ is
+    \[
+    f(\x|\alpha, \beta) = \prod \frac{\alpha x_i^{\alpha - 1}}{\beta^\alpha} I_{[0,\beta]}(x_i) = (\frac{\alpha}{\beta^\alpha})^n \prod x_i^{\alpha-1} \cdot I_{(-\infty, \beta)}(X_{(n)})I_{[0, \infty]}(X_{(1)}).
+    \]
+    By the Factorization Theorem, $\prod x_i, X_{(n)}$ are sufficient statistics for $(\alpha , \beta)$.
+    
+    \item
+    The likelihood function takes the same form as the joint pdf:
+    \[
+    L(\alpha, \beta|\x) = (\frac{\alpha}{\beta^\alpha})^n \prod x_i^{\alpha-1} \cdot I_{(-\infty, \beta)}(X_{(n)})I_{[0, \infty]}(X_{(1)}),
+    \]
+    and the log likelihood is 
+    \[
+    n\log \alpha - n\alpha \log \beta + (\alpha - 1)\sum \log x_i + \log [I_{(-\infty, \beta)}(X_{(n)})I_{[0, \infty]}(X_{(1)})].
+    \]
+    When $\alpha$ is fixed, the identity function is 0 when $X_{(n)} > \beta$. When $\beta \ge X_{(n)}$, $L(\alpha, \beta|\x)$ is a decreasing function with respect to $\beta$. Thus, maximum is achieved when $\hat \beta = X_{(n)}$.
+    Take the partial derivative of $\alpha$ to the log-likelihood and set equal to 0 and $\hat \beta = X_{(n)}$, 
+    \[
+    \frac{\partial \log L}{\partial \alpha} = \frac{n}{\alpha} - n\log X_{(n)} + \sum \log x_i = 0 \to \hat \alpha = \frac{n}{n\log X_{(n)} - \sum \log x_i}.
+    \]
+    The second derivative is also negative.
+    Therefore, $(\hat \alpha, \hat{\beta})$ are the MLEs.
+    \item
+    Plug the data into MLEs, we have $\hat \alpha = 12.59, \hat{\beta} = 25$.
+\end{enumerate}
+
+
+\subsection*{7.11}
+Let $\sample{X}$ be iid with pdf
+\[
+f(x|\theta) = \theta x ^{\theta - 1}, \quad 0 \le x \le 1, \quad 0 < \theta < \infty.
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Find the MLE of $\theta$, and show that its variance $\to 0$ as $n \to \infty$.
+    \item Find the method of moments estimator of $\theta$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \[
+    L(\theta|\x) = \prod \theta x_i^{\theta - 1}; \quad \log L = n\log \theta + (\theta - 1) \sum \log x_i.
+    \]
+    Take derivative of the loglikelihood and set it equals to 0
+    \[
+    \frac{d}{d\theta}\log L = \frac{n}{\theta} + \sum \log x_i = 0.
+    \]
+    Solving this equation gives us the MLE $\hat{\theta} = - \frac{n}{\sum \log x_i}$ (second derivative is negative).
+
+    By the law of tranformation, let $Y = - \log X_i$, $f_Y(y) = f_X(g^{-1}(y))|\frac{d}{dy}g^{-1}(y)| = \theta e^{-y(\theta - 1)}e^{-y} = \theta e^{-\theta y} \sim \text{exponential}(1/\theta)$, so $G = -\sum \log x_i \in \text{gamma}(n, 1/\theta).$ Thus $\hat \theta = n/G$.
+    $1/G$ is the inverse gamma distribution, therefore we have
+    \[
+    E\hat{\theta} = \frac{n}{n-1}\theta \quad \text{and} \quad Var\hat{\theta} = \frac{n^2}{(n-1)^2(n-2)}\theta^2 \to 0 ~\text{as} ~n\to \infty.
+    \]
+    \item
+    \[
+    EX = \int_0^1 \theta x^\theta dx = \frac{\theta}{\theta + 1}x^{\theta + 1}\Biggr|_0^1 = \frac{\theta}{\theta + 1} = \frac{\sum X_i}{n} \Longrightarrow \hat{\theta} = \frac{\sum X_i}{n - \sum X_i}
+    \]
+\end{enumerate}
+
+\end{document}
