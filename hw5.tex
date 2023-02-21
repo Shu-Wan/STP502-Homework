@@ -1,0 +1,167 @@
+
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[margin=1in,nohead]{geometry}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mb}{\mathbb}
+\newcommand{\msc}{\mathscr}
+\newcommand{\goesto}{\rightarrow}
+\newcommand{\note}{{\bf Note: }}
+\newcommand{\vspan}{\text{span}}
+
+\newcommand{\R}{\mb{R}}
+\newcommand{\nat}{\mb{N}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\ones}{\mathbf{1}}
+\newcommand{\zero}{\mathbf{0}}
+
+\newcommand{\Eqn}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\bbm}{\begin{bmatrix}}
+\newcommand{\ebm}{\end{bmatrix}}
+\newcommand{\bpm}{\begin{pmatrix}}
+\newcommand{\epm}{\end{pmatrix}}
+
+\newcommand{\Sol}{\par {\bf Solution:}}
+\newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+\newcommand{\order}[1]{X_{(#1)}}
+\newcommand{\Partial}[1]{\frac{\partial}{\partial #1}}
+
+\DeclareMathOperator*{\argmin}{\arg\min}
+\DeclareMathOperator*{\argmax}{\arg\max}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\allowdisplaybreaks[4]
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\begin{center}
+\Large{
+\textbf{STP 502, Spring 2023, Homework 4} \\
+Due: Monday, Feb 27, 2023. \\
+Shu Wan (1226038322)
+}
+\end{center}
+\subsection*{7.44}
+Let $\sample{X}$ be iid $n(\theta, 1)$. Show that the best unbiased estimator of $\theta^2$ is $\bar X^2 - (1/ n)$.
+Calculate its variance (use Stein's Identity from Section 3.6), and show that it is greater than the Cram\'{e}r-Rao Lower Bound.
+
+\Sol
+
+\subsection*{7.46}
+Let $X_1$, $X_2$, and $X_3$ be a random sample of size three from a uniform$(\theta, 2\theta)$ distribution, where $\theta > 0$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the method of moments estimator of $\theta$.
+    \item Find the MLE, $\hat \theta$, and find a constant $k$ such that $E_\theta(k\hat \theta) = \theta$.
+    \item Which of the two estimators can be improved by using sufficiency? How?
+    \item Find the method of moments estimate and the MLE of $\theta$ based on the data
+    \[
+    1.29, .86, 1.33,
+    \]
+    three observations of average berry sizes (in centimeters) of wine grapes.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{7.47}
+Suppose that when the radius of a circle is measured , an error is made that has a $n(0, \sigma^2)$ distribution. If $n$ independent measurements are made, find an unbiased estimator of the area of the circle. Is it best unbiased?
+\Sol
+
+\subsection*{7.48}
+Suppose that $X_i$, $i = 1, \dots, n$, are iid Bernoulli($p$).
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the variance of the MLE of $p$ attains the Cram\'{e}r-Rao Lower Bound.
+    \item For $n > 4$, show that the product $X_1X_2X_3X_4$ is an unbiased estimator of $p^4$ and use this fact to find the best unbiased estimator of $p^4$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{7.49}
+Let $\sample X$ be iid exponential($\lambda$).
+\begin{enumerate}[label=(\alph*)]
+    \item Find an unbiased estimator of $\lambda$ based only on $y = \min\{\sample X\}$.
+    \item Find a better estimator than the one in part(a). Prove that it is better.
+    \item The following data are high-stress failure times (in hours) of Kevlar/epoxy spherical vessels used in a sustained pressure environment on the space shuttle:
+    \[
+    50.1, 70.1, 137.0, 166.9, 170.5, 152.8, 80.5, 123.5, 112.6, 148.5, 160.0, 125.4.
+    \]
+    Failure times are often modeled with the exponential distribution. Estimate the mean failure time using the estimators from parts (a) and (b).
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{7.50}
+Let $\sample X$ be iid $n(\theta, \theta^2), \theta > 0$. For this model both $\bar X$ and $cS$ are unbiased estimators of $\theta$, where $c = \frac{\sqrt{n-1}\Gamma((n-1)/2)}{\sqrt{2}\Gamma(n/2)}$.
+\begin{enumerate}[label=(\alph*)]
+    \item Prove that for any number $a$ the estimator $a \bar X + (1-a)(cS)$ is an unbiased estimator of $\theta$.
+    \item Find the value of $a$ that produces the estimator with minimum variance.
+    \item Show that $(\bar X, S^2)$ is a sufficient statistic for $\theta$ but it is not a complete sufficient statistic.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{7.59}
+Let $\sample X$ be iid $n(\mu, \sigma^2)$. Find the best unbiased estimator of $\sigma^p$, where $p$ is a known positive constant, not necessarily an integer.
+
+\Sol
+
+\subsection*{7.60}
+Let $\sample X$ be iid gamma$(\alpha, \beta)$ with $\alpha$ known. Find the best unbiased estimator of $1/\beta$.
+
+\Sol
+
+
+
+\end{document}
