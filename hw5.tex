@@ -160,13 +160,13 @@ Let $X_1$, $X_2$, and $X_3$ be a random sample of size three from a uniform$(\th
 Suppose that when the radius of a circle is measured, an error is made that has a $n(0, \sigma^2)$ distribution. If $n$ independent measurements are made, find an unbiased estimator of the area of the circle. Is it best unbiased?
 \Sol
 
-Let $r$ be the real radius of the circle, then the measured radius $X$ follows $n(r, \sigma^2)$. The real area of a circle is $\pi r^2$.
+Let $r$ be the real radius of the circle, then the measured radius $X$ follows $n(r, \sigma^2)$. The real area of a circle is $A = \pi r^2$.
 We know that $\bar X$ is a sufficient and  complete statistic for normal distribution, and $\bar X \sim n(r, \sigma^2/n)$.
 
 \[
 E(\bar X) = r^2 + \sigma^2/n,
 \]
-let $\tau(r) = \bar X - \sigma^2/n$, $\tau(r)$ is an unbiased estimator of $r$. By Theorem 7.3.23, $\tau(r)$ is the UMVUE of $r$.
+let $\hat A(r) = \pi(\bar X - \sigma^2/n)$, $\hat A(r)$ is an unbiased estimator of circle area $A$. By Theorem 7.3.23, $\hat A(r)$ is the UMVUE of $A$.
 
 \subsection*{7.48}
 Suppose that $X_i$, $i = 1, \dots, n$, are iid Bernoulli($p$).
@@ -280,7 +280,7 @@ Notice that the term in the integral is the kernel of $\chi_{n+p-1}$. Therefore,
 \[
 E[Y^{p/2}] = 2^{p/2}\frac{\Gamma(\frac{n+p-1}{2})}{\Gamma(\frac{n-1}{2})},
 \]
-so $(n-1)^{p/2}S^p\frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n+p-1}{2})}$ is an unbiased estimator of $\sigma^p$. By Theorem 7.3.23, this is also the best unbiased estimator.
+so $(\frac{n-1}{2})^{p/2}S^p\frac{\Gamma(\frac{n-1}{2})}{\Gamma(\frac{n+p-1}{2})}$ is an unbiased estimator of $\sigma^p$. By Theorem 7.3.23, this is also the best unbiased estimator.
 
 \subsection*{7.60}
 Let $\sample X$ be iid gamma$(\alpha, \beta)$ with $\alpha$ known. Find the best unbiased estimator of $1/\beta$.
@@ -294,8 +294,8 @@ E[\frac{1}{Y}] = \frac{1}{\Gamma(\alpha n){(\beta/n)}^{\alpha n}} \int y^{\alpha
 \]
 The term in the integral is the kernel of gamma$(\alpha n - 1, \beta/n)$. Hence,
 \[
-E[\frac{1}{Y}] = E[\frac{1}{\bar X}] = \frac{\Gamma(\alpha n - 1){(\beta/n)}^{\alpha n - 1}}{\Gamma(\alpha n){(\beta/n)}^{\alpha n }} = \frac{n\Gamma(\alpha n - 1)}{\Gamma(\alpha n)} \cdot \frac{1}{\beta}.
+E[\frac{1}{Y}] = E[\frac{1}{\bar X}] = \frac{\Gamma(\alpha n - 1){(\beta/n)}^{\alpha n - 1}}{\Gamma(\alpha n){(\beta/n)}^{\alpha n }} = \frac{n\Gamma(\alpha n - 1)}{\Gamma(\alpha n)} \cdot \frac{1}{\beta} = \frac{1}{\alpha} \cdot \frac{1}{\beta}.
 \]
-Then $\frac{\Gamma(\alpha n)}{n\Gamma(\alpha n - 1)}\cdot \frac{1}{\bar X}$ is an unbiased estimator of $1/\beta$ and by Theorem 7.3.23, this is the best.
+Then $\frac{n\alpha}{\sum X_i}$ is an unbiased estimator of $1/\beta$ and by Theorem 7.3.23, this is the best.
 
 \end{document}
