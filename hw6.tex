@@ -1,0 +1,234 @@
+
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[margin=1in,nohead]{geometry}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mb}{\mathbb}
+\newcommand{\msc}{\mathscr}
+\newcommand{\goesto}{\rightarrow}
+\newcommand{\note}{{\bf Note: }}
+\newcommand{\vspan}{\text{span}}
+
+\newcommand{\R}{\mb{R}}
+\newcommand{\nat}{\mb{N}}
+
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\B}{\mathbf{B}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\y}{\mathbf{y}}
+\newcommand{\z}{\mathbf{z}}
+\renewcommand{\b}{\mathbf{b}}
+\renewcommand{\u}{\mathbf{u}}
+\renewcommand{\v}{\mathbf{v}}
+\newcommand{\ones}{\mathbf{1}}
+\newcommand{\zero}{\mathbf{0}}
+
+\newcommand{\Eqn}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\bbm}{\begin{bmatrix}}
+\newcommand{\ebm}{\end{bmatrix}}
+\newcommand{\bpm}{\begin{pmatrix}}
+\newcommand{\epm}{\end{pmatrix}}
+
+\newcommand{\Sol}{\par {\bf Solution:}}
+\newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+\newcommand{\var}{\textrm{Var}}
+\newcommand{\order}[1]{X_{(#1)}}
+\newcommand{\Partial}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\SecPartial}[1]{\frac{\partial^2}{\partial {#1}^2}}
+
+\DeclareMathOperator*{\argmin}{\arg\min}
+\DeclareMathOperator*{\argmax}{\arg\max}
+
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\allowdisplaybreaks[4]
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\begin{document}
+
+\begin{center}
+\Large{
+\textbf{STP 502, Spring 2023, Homework 6} \\
+Due: Thursday, Mar 23, 2023. \\
+Shu Wan (1226038322)
+}
+\end{center}
+
+\subsection*{8.5}
+A random sample, $\sample{X}$, is drawn from a Pareto population with pdf
+\[
+f(x|\theta, \nu) = \frac{\theta\nu^\theta}{x^{\theta+1}}I_{[\nu, +\infty)]}(x), \quad \theta > 0, \quad \nu > 0.
+\]
+\begin{enumerate}[label=(\alph*)]
+    \item Find the MLEs of $\theta$ and $\nu$.
+    \item Show that the LRT of
+    \[
+    H_0: \theta = 1, ~\nu ~\text{unknown}, \quad \text{versus} \quad H_1: \theta \neq 1, ~\nu ~\text{unknown},
+    \]
+    has critical region of the form ${\x: T(\x) \le c_1 ~\text{or}~ T(\x) \ge c_2}$, where $0 < c_1 < c_2$ and 
+    \[
+    T = \log \Bigg[\frac{\prod \limits_{i=1}^n X_i}{(\min \limits_i X_i)^n}\Bigg].
+    \]
+    \item Show that, under $H_0, 2T$ has a chi squared distribution, and find the number of degrees of freedom. (Hint: Obtain the joint distribution of the $n - 1$ nontrivial terms $X_i /(\min_i X_i)$ conditional on $\min_i X_i$. Put these $n - 1$ terms together, and notice that the distribution of $T$ given $\min_i X_i$ does not depend on $\min_i X_i$, so it is the unconditional distribution of $T$.)
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.6}
+
+Suppose that we have two independent random samples: $\sample{X}$ are exponential($\theta$),
+and $\sample{Y}$ are exponential($\mu$).
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find the LRT of $H_0: \theta = \mu$ versus $H_1: \theta \neq \mu$.
+    \item Show that the test in part (a) can be based on the statistic
+    \[
+    T = \frac{\sum X_i}{\sum X_i + \sum Y_i}.
+    \]
+    \item Find the distribution of $T$ when $H_0$ is true.
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.7}
+We have already seen the usefulness of the LRT in dealing with problems with nuisance
+parameters. We now look at some other nuisance parameter problems.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find the LRT of 
+    \[
+    H_0: \theta \le 0 \quad \text{versus} \quad H_1: \theta > 0
+    \]
+    based on a sample $\sample{X}$ from a population with probability density function $f(x|\theta, \lambda) = \frac{1}{\lambda}e^{-(x-\theta)}/\lambda I_{[\theta, \infty)}(x)$, where both $\theta$ and $\lambda$ are unknown.
+    \item We have previously seen that the exponential pdf is a special case of a gamma pdf. Generalizing in another way, the exponential pdf can be considered as a special case of the Weibull($\gamma, \beta$). The Weibull pdf, which reduces to the exponential if $\gamma = 1$, is very important in modeling reliability of systems. Suppose that $\sample{X}$ is a random sample from a Weibull population with both $\gamma$ and $\beta$ unknown. Find the LRT of $H_0: \gamma = 1$ versus $H_1: \gamma \neq 1$.
+    \item
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.9}
+
+Stefanski (1996) establishes the arithmetic-geometric-harmonic mean inequality (see Example 4.7.8 and Miscellanea 4.9.2) using a proof based on likelihood ratio tests. Suppose that $\sample{Y}$ are independent with pdfs $\lambda_ie^{-\lambda_iy_i}$, and we want to test $H_0: \lambda_1 = \dots = \lambda_n$ vs. $H_1: \lambda_i$ are not all equal.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the LRT statistic is given by $(\bar Y)^{-n} /(\prod_i Y_i )^{-1}$ and hence deduce the arithmetic-geometric mean inequality.
+    \item Make the transformation $X_i = 1 / Y_i$ , and show that the LRT statistic based on $\sample{X}$ is given by $[n/\sum_i (1/x_i)]^n /\prodi X_i$ and hence deduce the geometric-harmonic mean inequality.
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.10}
+
+Let $\sample{X}$ be iid Poisson($\lambda$), and let $\lambda$ have a gamma($\alpha$, $\beta$) distribution, the conjugate family for the Poisson. In Exercise 7.24 the posterior distribution of $\lambda$ was found, including the posterior mean and variance. Now consider a Bayesian test of
+$H_0: \lambda \le \lambda_0$ versus $H_1: \lambda > \lambda_0$.
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item Calculate expression for the posterior probabilities of $H_0$ and $H_1$.
+    \item If $\alpha = \frac{5}{2}$ and $\beta = 2$, the prior distribution is a chi squared distribution with 5 degrees of freedom. Explain how a chi squared table could be used to perform a Bayesian test.
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.13}
+Let $X_1, X_2$ be iid uniform($\theta, \theta + 1$). For testing $H_0: \theta = 0$ versus $H_1: \theta > 0$, we have competing tests:
+\begin{align*}
+    \phi_1(X_1): &\text{Reject} ~H_0 ~\text{if}~ X_1 > .95, \\ 
+    \phi_2(X_1, X_2): &\text{Reject} ~H_0 ~\text{if}~ X_1 + X_2 > C.    
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Find the value of $C$ so that $\phi_2$ has the same size as $\phi_1$.
+    \item Calculate the power function of each test. Draw a well-labeled graph of each power function.
+    \item Prove or disprove: $\phi_2$ is a more powerful test that $\phi_1$.
+    \item Show how to get a test that has the same size but is more powerful than $\phi_2$.
+\end{enumerate}
+
+\Sol
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+    \item
+    \item
+\end{enumerate}
+
+\subsection*{8.15}
+Show that for a random sample $\sample{X}$ from a n($0, \sigma^2$) population, the most powerful test of $H_0: \sigma = \sigma_0$ versus $H_1: \sigma = \sigma_1$, where $\sigma_0 < \sigma_1$, is given by 
+$$
+\phi(\sum X_i^2) = \begin{cases*} 
+1 & \text{if} ~ \sum X_i^2 > c \\ 
+0 & \text{if} ~ \sum X_i^2 \ge c.
+\end{cases*}
+$$
+For a given value of $\alpha$, the size of the Type I Error, show how the value of $c$ is explicitly determined.
+
+\Sol
+
+
+\subsection*{8.16}
+One very striking abuse of $\alpha$ levels is to choose them \emph{after} seeing the data and to choose them in such a way as to force rejection (or acceptance) of a null hypothesis. To see what the \emph{true} Type I and Type I I Error probabilities of such a procedure are, calculate size and power of the following two trivial tests:
+
+\begin{enumerate}[label=(\alph*)]
+    \item Always reject $H_0$, no matter what data are obtained (equivalent to the practice
+of choosing the $\alpha$ level to force rejection of $H_0$).
+    \item Always accept $H_0$, no matter what data are obtained (equivalent to the practice
+of choosing the $\alpha$ level to force acceptance of $H_0$).
+\end{enumerate}
+
+\Sol
+
+\begin{enumerate}[label=(\alph*)]
+    \item
+    \item
+\end{enumerate}
+\end{document}

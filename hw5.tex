@@ -48,6 +48,7 @@
 
 \newcommand{\Sol}{\par {\bf Solution:}}
 \newcommand{\sample}[1]{#1_1 , \dots , #1_n}
+\newcommand{\var}{\textrm{Var}}
 \newcommand{\order}[1]{X_{(#1)}}
 \newcommand{\Partial}[1]{\frac{\partial}{\partial #1}}
 \newcommand{\SecPartial}[1]{\frac{\partial^2}{\partial {#1}^2}}
@@ -70,7 +71,7 @@
 
 \begin{center}
 \Large{
-\textbf{STP 502, Spring 2023, Homework 4} \\
+\textbf{STP 502, Spring 2023, Homework 5} \\
 Due: Monday, Feb 27, 2023. \\
 Shu Wan (1226038322)
 }
@@ -111,16 +112,16 @@ E(\bar X^2) = \frac{1}{n} + \theta^2.
 \]
 Plug in these values to the variance equation,
 \[
-\Longrightarrow Var(Y) =  \frac{4\theta^2}{n} + \frac{2}{n^2} > \frac{4\theta^2}{n}.
+\Longrightarrow \var(Y) =  \frac{4\theta^2}{n} + \frac{2}{n^2} > \frac{4\theta^2}{n}.
 \]
 
-The Cram\'{e}r Rao Lower Bound for the estimator $\tau(\x)$ of$\theta^2$ is given by
+The Cram\'{e}r Rao Lower Bound for the estimator $\tau(\x)$ of $\theta^2$ is given by
 \[
-\frac{E [\Partial E_\theta \tau(\x)]}{-nE_\theta [\SecPartial{\theta} \log f(x|\theta)]},
+\frac{[\Partial \theta E_\theta\tau(\x)]^2}{-nE_\theta [\SecPartial{\theta} \log f(x|\theta)]},
 \]
 where
 \begin{align*}
-    E_\theta [\SecPartial{\theta} \log f(x|\theta)] &= E_\theta [\SecPartial{\theta} (-\frac{1}{2} \log 2\pi - \frac{1}{2}(x-\theta)^2] \\
+    E_\theta [\SecPartial{\theta} \log f(x|\theta)] &= E_\theta [\SecPartial{\theta} (-\frac{1}{2} \log 2\pi - \frac{1}{2}(x-\theta)^2)] \\
     &= E_\theta[\Partial \theta (x-\theta)] = -1.
 \end{align*}
 
@@ -287,14 +288,14 @@ Let $\sample X$ be iid gamma$(\alpha, \beta)$ with $\alpha$ known. Find the best
 
 \Sol
 
-When $\alpha$ is known, $Y = \bar X$ is a sufficient and complete statistic of $\beta$ and $Y \sim \text{gamma}(\alpha n, \beta/n)$.
+When $\alpha$ is known, $Y = \sum X_i$ is a sufficient and complete statistic of $\beta$ and $Y \sim \text{gamma}(\alpha n, \beta)$.
 Then,
 \[
-E[\frac{1}{Y}] = \frac{1}{\Gamma(\alpha n){(\beta/n)}^{\alpha n}} \int y^{\alpha n - 1 - 1}e^{-ny/\beta} dy.
+E[\frac{1}{Y}] = \frac{1}{\Gamma(\alpha n){(\beta)}^{\alpha n}} \int y^{\alpha n - 1 - 1}e^{-y/\beta} dy.
 \]
-The term in the integral is the kernel of gamma$(\alpha n - 1, \beta/n)$. Hence,
+The term in the integral is the kernel of gamma$(\alpha n - 1, \beta)$. Hence,
 \[
-E[\frac{1}{Y}] = E[\frac{1}{\bar X}] = \frac{\Gamma(\alpha n - 1){(\beta/n)}^{\alpha n - 1}}{\Gamma(\alpha n){(\beta/n)}^{\alpha n }} = \frac{n\Gamma(\alpha n - 1)}{\Gamma(\alpha n)} \cdot \frac{1}{\beta} = \frac{1}{\alpha} \cdot \frac{1}{\beta}.
+E[\frac{1}{Y}] = E[\frac{1}{\sum X_i}] = \frac{\Gamma(\alpha n - 1){(\beta)}^{\alpha n - 1}}{\Gamma(\alpha n){(\beta)}^{\alpha n }} = \frac{n\Gamma(\alpha n - 1)}{\Gamma(\alpha n)} \cdot \frac{1}{\beta} = \frac{1}{\alpha} \cdot \frac{1}{\beta}.
 \]
 Then $\frac{n\alpha}{\sum X_i}$ is an unbiased estimator of $1/\beta$ and by Theorem 7.3.23, this is the best.
 
